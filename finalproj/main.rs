@@ -50,6 +50,5 @@ fn adj_list(my_vec: &Vec<(usize,usize)>, node_count: usize) -> Vec<Vec<usize>> {
         adjacency_list[*i as usize].push(*j);
     }
     return adjacency_list;
-    println!("{:?}", adjacency_list);
 }
 
