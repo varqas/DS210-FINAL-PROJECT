@@ -1,23 +1,33 @@
 use std::fs::File;
-use std::io::prelude::*;
+//use std::io::prelude::*;
 use std::collections::HashMap;
 use std::io::{BufRead, BufReader};
 
 mod bfs;
-use crate::bfs::{}
-mod pagerank;
-use crate::pagerank::{}
+use bfs::distances_bfs;
+
 mod degrees;
+use degrees::{degree_of_separation, average_number_citations};
+
+
 
 fn main() {
     let data = read_file("Cit-HepPh.txt");
     let num_nodes = data.0;
     let list_edges = data.1;
-    let mut adjacency_list = adj_list(num_nodes, list_edges);
-    let mut bfs_graph = bfs::distances_bfs(usize, &adjacency_list);
-    let mut shortest_distance_pairs: HashMap<usize,usize> = degrees::degree_of_separation();
-    //Added a new comment
+    let adjacency_list = adj_list(&list_edges, num_nodes);
+    let mut bfs_graph = distances_bfs(0, &adjacency_list, num_nodes);
+    let threshold = 5;
+    for threshold in 1..=5 {
+        let mut degree_result = degree_of_separation(adjacency_list, node_count, threshold);
+        println!("{:?}", degree_result);
+        let mut average_citations = average_number_citations(&adjacency_list);
+        //println!("{:?}", )
+    }
+    let mut shortest_distance_pairs: HashMap<usize,usize> = degree_of_separation(bfs_graph, node_count, threshold);
 }
+
+
 
 fn read_file(path: &str) -> (usize, Vec<(usize, usize)>) {
     let mut node_count = 0;
@@ -38,14 +48,6 @@ fn read_file(path: &str) -> (usize, Vec<(usize, usize)>) {
     return (node_count, edge_list);
 }
 
-fn graph_to_hashmap(node_count: usize, edge_list: Vec<(usize, usize)>) -> HashMap<usize,usize> {
-    let (node_count, edge_list) = read_file("Cit-HepPh.txt");
-    let mut graph_map = HashMap::new();
-    for &(x,y) in &(edge_list) {
-        graph_map.insert(x,y);
-    }
-    return graph_map
-}
 
 
 fn adj_list(my_vec: &Vec<(usize,usize)>, node_count: usize) -> Vec<Vec<usize>> {
@@ -56,3 +58,4 @@ fn adj_list(my_vec: &Vec<(usize,usize)>, node_count: usize) -> Vec<Vec<usize>> {
     return adjacency_list;
 }
 
+// test the important functions
