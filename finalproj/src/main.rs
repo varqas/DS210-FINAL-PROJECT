@@ -16,6 +16,7 @@ fn main() {
     let mut adjacency_list = adj_list(num_nodes, list_edges);
     let mut bfs_graph = bfs::distances_bfs(usize, &adjacency_list);
     let mut shortest_distance_pairs: HashMap<usize,usize> = degrees::degree_of_separation();
+    //Added a new comment
 }
 
 fn read_file(path: &str) -> (usize, Vec<(usize, usize)>) {
