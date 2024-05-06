@@ -1,4 +1,6 @@
-// Implementation of the BFS algorithm to find the distances between each of the vertices
+// Collaborators: None. ChatGPT used for debugging.
+
+// Importing the necessary libraries and structures.
 
 use std::collections::HashMap;
 use std::collections::VecDeque;
@@ -6,7 +8,8 @@ use std::collections::VecDeque;
 pub type Vertex = usize;
 pub type AdjacencyList = Vec<Vec<usize>>;
 
-
+// Calculating the distances between each node from an initial vertex.
+// I had to use ChatGPT to debug types and track the vertices.
 
 pub fn distances_bfs(initial_vertex: Vertex, graph: &AdjacencyList, node_count: usize) -> Vec<Option<u32>> {
     let mut distances: Vec<Option<u32>> = vec![None; node_count];
@@ -20,7 +23,6 @@ pub fn distances_bfs(initial_vertex: Vertex, graph: &AdjacencyList, node_count: 
             if distances[neighbor].is_none() {
                 if let Some(distance_to_current) = distances[current_vertex] {
                     let new_distance = distance_to_current + 1;
-                    println!("Updating distance to vertex {}: {}", neighbor, new_distance);
                     distances[neighbor] = Some(new_distance);
                 } else {
                     eprintln!("Error: Distance to current vertex is None.");
@@ -34,10 +36,7 @@ pub fn distances_bfs(initial_vertex: Vertex, graph: &AdjacencyList, node_count: 
     distances
 }
 
-
-
-// Output of BFS for a given node is the distances to the other nodes. From there, take the nodes that are less than x distance away.
-// Deg sep.- For loop that sees if the distance is less than or equal to x. Make a hash map to collect the values that are less than or equal to.
+// Collecting all of the vertex distances into a hash map.
 
 pub fn collect_distances(initial_vertex: Vertex, graph: Vec<Vec<usize>>, node_count: usize) -> HashMap<usize, Option<u32>> {
     let distances = distances_bfs(initial_vertex, &graph, node_count);
